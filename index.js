@@ -15,10 +15,26 @@ app.use(express.json())
 app.use(cors())
 // ________________________________________________________________
 
+app.post('/produto',async(req,res)=>{
+    const valores = req.body
+   console.log( valores )
+
+   try{
+        if(valores.fabricanteId == 1){
+            const pesq = await Produto.create(valores, {raw:true})
+            res.status(201).json(pesq)
+            }else{
+            res.status(404).json({message:'fabricante não existe'})
+            }
+        }catch(err){
+            console.error('não foi possível consultar os dados')
+            res.status(500).json({message:'não foi possível consultar os dados'})
+        }
+})
 
 app.get('/fabricante',async(req,res)=>{
      const valores = req.query
-    console.log( valores )
+    console.log(valores)
 
     try{
         const pesq = await Fabricante.findOne({where:{marca: valores.marca}, raw:true})
@@ -38,12 +54,12 @@ app.get('/fabricante',async(req,res)=>{
 
 app.post('/fabricante',async(req,res)=>{
      const valores = req.body
-    console.log( valores )
+    console.log(valores)
 
     try{
         const pesq = await Fabricante.create(valores,{raw:true})
         console.log(pesq)
-        res.status(201).json( pesq )
+        res.status(201).json(pesq)
     }catch(err){
         console.error('não foi possível gravar os dados')
         res.status(500).json({message:'não foi possível gravar os dados'})
