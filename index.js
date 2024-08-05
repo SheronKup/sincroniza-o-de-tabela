@@ -66,6 +66,15 @@ app.post('/fabricante',async(req,res)=>{
     }
 })
 
+app.delete('/fabricante/:id',(req,res)=>{
+    const valor = req.params
+    console.log(valor)
+    console.log('------------------------')
+    console.log(valor.id)
+    res.status(200).json({message:'dados recebidos'})
+
+})
+
 app.get('/',(req,res)=>{
     console.log('aplicação rodando')
     res.status(200).json({message:'aplicação rodando'})
